@@ -1,24 +1,96 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hatch Valley Middle School Grade Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Hatch Valley Middle School EZGrader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #b00;
+        }
+        img.bear {
+            width: 100px;
+            display: block;
+            margin: 20px auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #b00;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        #calculate-button {
+            background-color: #b00;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Hatch Valley Middle School</h1>
-        <h2>Grade Calculator</h2>
-        <label for="totalProblems">Total Problems:</label>
-        <input type="number" id="totalProblems">
-        <label for="missedProblems">Missed Problems (optional):</label>
-        <input type="number" id="missedProblems">
-        <button onclick="calculateGrades()">Calculate</button>
-        <table id="gradeTable"></table>
-        <p id="finalGrade"></p>
+        <h1>Hatch Valley Middle School EZGrader</h1>
+        <img src="https://i.ibb.co/0tXyB1B/bear.png" alt="Bear" class="bear">
+        <label for="problems">Enter the number of problems:</label>
+        <input type="number" id="problems" min="1">
+        <button id="calculate-button" onclick="calculateGrades()">Calculate</button>
+        <table id="grade-table"></table>
     </div>
-    <script src="script.js"></script>
+    <script>
+        function calculateGrades() {
+            var problems = document.getElementById('problems').value;
+            var table = document.getElementById('grade-table');
+            table.innerHTML = '<tr><th>Score</th><th>Grade</th><th>Number Correct</th><th>Number Missed</th></tr>';
+            var gradeScale = [
+                { grade: 'A+', min: 100, max: 100 },
+                { grade: 'A', min: 94, max: 99 },
+                { grade: 'A-', min: 90, max: 93 },
+                { grade: 'B+', min: 87, max: 89 },
+                { grade: 'B', min: 84, max: 86 },
+                { grade: 'B-', min: 80, max: 83 },
+                { grade: 'C+', min: 77, max: 79 },
+                { grade: 'C', min: 74, max: 76 },
+                { grade: 'C-', min: 70, max: 73 },
+                { grade: 'D+', min: 67, max: 69 },
+                { grade: 'D', min: 64, max: 66 },
+                { grade: 'D-', min: 60, max: 63 },
+                { grade: 'F', min: 50, max: 59 }
+            ];
+            gradeScale.forEach(function(gradeItem) {
+                var row = table.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                cell1.innerHTML = gradeItem.min + ' - ' + gradeItem.max;
+                cell2.innerHTML = gradeItem.grade;
+                cell3.innerHTML = Math.ceil(problems * gradeItem.min / 100) + ' - ' + Math.floor(problems * gradeItem.max / 100);
+                cell4.innerHTML = problems - Math.ceil(problems * gradeItem.min / 100) + ' - ' + (problems - Math.floor(problems * gradeItem.max / 100));
+            });
+        }
+    </script>
 </body>
 </html>
