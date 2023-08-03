@@ -1,2 +1,2 @@
 # HvmsEZgrader
-Grading scale program based on Ms. Archer’s workcreated by Ms. Cullum
+Grading scale program based on Ms. Archer’s work, created by Ms. Cullum
